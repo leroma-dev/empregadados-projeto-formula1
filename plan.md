@@ -271,6 +271,21 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
 
 ---
 
+### Fase 8: Integração Contínua (CI/CD no GitHub Actions)
+- [x] **8.1. Configuração do Workflow (`.github/workflows/ci.yml`):**
+  - Triggers em `push` e `pull_request` nas branches `main` e `master`, além de `workflow_dispatch`.
+  - Concorrência com cancelamento de execuções obsoletas (`cancel-in-progress`).
+  - Cache inteligente de `.venv` atrelado ao hash de `poetry.lock`.
+- [x] **8.2. Job de Lint e Formatação (`lint`):**
+  - Validação estrita via `poetry run task lint` (Ruff check + format check).
+- [x] **8.3. Job de Testes e Cobertura (`test`):**
+  - Execução de testes com barreira mínima de 50% de cobertura via `poetry run task test`.
+  - *Smoke test* de importação do dashboard Streamlit (`poetry run python -c "import src.app"`).
+- [x] **8.4. Job de Build da Documentação (`docs`):**
+  - Compilação estrita com `poetry run task docs_build` (`mkdocs build --strict`).
+
+---
+
 ## 6. Critérios de Aceite (Definition of Done - DoD)
 
 Uma tarefa ou fase do projeto só é considerada **concluída** após a validação do seguinte checklist:
@@ -281,6 +296,7 @@ Uma tarefa ou fase do projeto só é considerada **concluída** após a validaç
 4. [x] **Testes e Cobertura:** Suíte executada via `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com taxa de aprovação de 100% e cobertura em `src/` **>= 50%**.
 5. [x] **Dashboard Streamlit:** Aplicação Streamlit inicializando sem erros ou quebras de tela.
 6. [x] **Documentação:** Build estático do MkDocs compilado sem erros (`poetry run mkdocs build`).
+7. [x] **Integração Contínua (CI):** Pipeline do GitHub Actions configurada em `.github/workflows/ci.yml` cobrindo lint, testes com barreira de 50% e build de docs.
 
 ---
 

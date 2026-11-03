@@ -1,5 +1,9 @@
 # OpenF1 Analytics & Dashboard 🏎️
 
+[![CI Pipeline](https://github.com/leroma-dev/empregadados-projeto-formula1/actions/workflows/ci.yml/badge.svg)](https://github.com/leroma-dev/empregadados-projeto-formula1/actions/workflows/ci.yml)
+[![Python 3.12](https://img.shields.io/badge/python-3.12.10-blue.svg)](https://www.python.org/downloads/)
+[![Coverage](https://img.shields.io/badge/coverage-%3E%3D50%25-green.svg)](https://pytest-cov.readthedocs.io/)
+
 Bem-vindo à documentação oficial do projeto **OpenF1 Analytics & Dashboard**. Esta aplicação foi desenvolvida para extração, validação tipada, processamento estatístico e visualização interativa de dados históricos e em tempo real da Fórmula 1 (temporadas de 2023 em diante), utilizando a **OpenF1 API**.
 
 ---
@@ -27,4 +31,5 @@ Bem-vindo à documentação oficial do projeto **OpenF1 Analytics & Dashboard**.
 | **Ruff** | Linter e formatador de código único de altíssima velocidade |
 | **Pytest + Pytest-cov** | Suíte de testes automatizados com cobertura garantida |
 | **MkDocs Material** | Geração desta documentação técnica |
+| **GitHub Actions** | Pipeline automatizada de Integração Contínua (CI) |
 

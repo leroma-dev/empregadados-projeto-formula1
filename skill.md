@@ -203,3 +203,15 @@ Antes de finalizar qualquer tarefa, submeter commits ou aprovar pull requests, e
 4. [x] **Testes & Cobertura:** `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com 100% de testes passando e cobertura em `src/` >= 50%.
 5. [x] **Frontend:** Streamlit inicializando sem erros (`poetry run streamlit run ...`).
 6. [x] **Documentação:** Páginas e guias em `docs/` atualizados e build validado (`poetry run mkdocs build`).
+7. [x] **Pipeline de CI:** Workflow no GitHub Actions (`.github/workflows/ci.yml`) validado e passando nos jobs de lint, testes e docs.
+
+---
+
+## 10. Pipeline de Integração Contínua (GitHub Actions)
+O projeto conta com automação de CI em `.github/workflows/ci.yml` cobrindo:
+- **Disparo:** `push` e `pull_request` para `main` / `master` e gatilho manual (`workflow_dispatch`).
+- **Cache:** `.venv` atrelado ao `poetry.lock` para execuções rápidas.
+- **Jobs em Paralelo:**
+  - `lint`: `poetry run task lint`
+  - `test`: `poetry run task test` + *smoke test* de inicialização do Streamlit.
+  - `docs`: `poetry run task docs_build` (`mkdocs build --strict`).

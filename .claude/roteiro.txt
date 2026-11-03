@@ -16,8 +16,17 @@ gere um prompt pedindo a AI para criar um arquivo skill.md com os seguintes requ
 
 Parte 3
 
-Gere um plan.md para a criacao do nosso projeto, utilize os arquivos  [doc_api.md](file;file:///home/programador/dev/empregadados/empregadados-projeto-formula1/doc_api.md)  e o [skill.md](file;file:///home/programador/dev/empregadados/empregadados-projeto-formula1/skill.md) 
+Gere um plan.md para a criacao do nosso projeto, utilize os arquivos  [doc_api.md](file;file://./doc_api.md)  e o [skill.md](file;file://./skill.md) 
 
+
+Parte 4 
+
+implemente o projeto do [plan.md](file;file://./plan.md) conforme a skill [skill.md](file;file://./skill.md) 
+caso nao exista, adicione o comando poetry run task test, lint, format e docs
+
+
+parte 5
+implemente nossa pipeline de ci no github
 
 resposta parte 2
         Você é um Arquiteto de Software e Engenheiro de Dados Sênior especialista em ecossistema Python moderno.

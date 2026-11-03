@@ -1,5 +1,12 @@
 # OpenF1 Analytics & Interactive Dashboard 🏎️
 
+[![CI Pipeline](https://github.com/leroma-dev/empregadados-projeto-formula1/actions/workflows/ci.yml/badge.svg)](https://github.com/leroma-dev/empregadados-projeto-formula1/actions/workflows/ci.yml)
+[![Python 3.12](https://img.shields.io/badge/python-3.12.10-blue.svg)](https://www.python.org/downloads/)
+[![Poetry](https://img.shields.io/badge/packaging-poetry-cyan.svg)](https://python-poetry.org/)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Coverage](https://img.shields.io/badge/coverage-%3E%3D50%25-green.svg)](https://pytest-cov.readthedocs.io/)
+[![Documentation](https://img.shields.io/badge/docs-MkDocs%20Material-red.svg)](https://squidfunk.github.io/mkdocs-material/)
+
 Aplicação analítica e dashboard interativo em Python para extração, validação tipada, análise estatística e visualização gráfica de dados históricos e em tempo real da Fórmula 1 (temporadas de 2023 em diante), consumindo os dados oficiais fornecidos pela **OpenF1 API**.
 
 ---
@@ -88,10 +95,32 @@ poetry run task docs_build
 
 ---
 
+## 🔄 Pipeline de Integração Contínua (CI/CD)
+
+O projeto possui uma esteira automatizada no **GitHub Actions** configurada em `.github/workflows/ci.yml`. A pipeline é disparada a cada `push` e `pull request` nas branches `main` e `master`, além de permitir execução manual via `workflow_dispatch`.
+
+A esteira executa 3 jobs paralelos e isolados com cache de dependências Poetry:
+
+1. **Lint & Code Formatting (`lint`):**
+   - Valida tipagem estática e conformidade com a PEP 8 via `poetry run task lint`.
+   - Executa checagem de formatação e ordenação de imports com Ruff.
+2. **Unit Tests & Coverage (`test`):**
+   - Executa toda a suíte de testes unitários com mocks via `poetry run task test`.
+   - Aplica a barreira de falha mandatória de **cobertura mínima de 50%** em `src/` (`pytest-cov`).
+   - Executa *smoke test* de inicialização do ponto de entrada do Streamlit (`src/app.py`).
+3. **Documentation Build (`docs`):**
+   - Valida compilação estrita da documentação técnica via `poetry run task docs_build` (`mkdocs build --strict`).
+   - Garante ausência de links quebrados, avisos ou inconsistências no MkDocs.
+
+---
+
 ## 📂 Estrutura do Projeto
 
 ```text
 .
+├── .github/                      # Workflows do GitHub Actions
+│   └── workflows/
+│       └── ci.yml                # Pipeline automatizada de CI
 ├── .python-version               # Versão do Python fixada (3.12.10)
 ├── pyproject.toml                # Dependências e configurações de ferramentas
 ├── mkdocs.yml                    # Configuração da documentação MkDocs
