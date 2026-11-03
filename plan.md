@@ -154,10 +154,10 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
 ## 5. Fases de Execução do Projeto (Roadmap)
 
 ### Fase 1: Setup do Ambiente e Governança Base
-- [ ] **1.1. Ajuste de Versão Python e pyproject.toml:**
+- [x] **1.1. Ajuste de Versão Python e pyproject.toml:**
   - Fixar versão com `pyenv local 3.12.10` e gerar/validar `.python-version`.
   - Corrigir o campo `requires-python` no `pyproject.toml` para `"^3.12"` (substituindo o atual `>=3.15`).
-- [ ] **1.2. Configuração do Poetry e Instalação de Dependências:**
+- [x] **1.2. Configuração do Poetry e Instalação de Dependências:**
   - Garantir venv no projeto: `poetry config virtualenvs.in-project true`.
   - Adicionar dependências de produção:
     ```bash
@@ -167,19 +167,19 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
     ```bash
     poetry add --group dev ruff pytest pytest-cov pytest-mock mkdocs mkdocs-material
     ```
-- [ ] **1.3. Configuração de Ruff e Pytest no `pyproject.toml`:**
+- [x] **1.3. Configuração de Ruff e Pytest no `pyproject.toml`:**
   - Configurar `tool.ruff` (line-length 88, regras E, F, I, UP, etc.).
   - Configurar `tool.pytest.ini_options` e `tool.coverage` com barreira mínima de 50%.
 
 ---
 
 ### Fase 2: Cliente HTTP OpenF1 com Rate Limiting (`src/client/`)
-- [ ] **2.1. Implementar Módulo de Exceções (`exceptions.py`):**
+- [x] **2.1. Implementar Módulo de Exceções (`exceptions.py`):**
   - `OpenF1Error`, `RateLimitExceededError`, `ResourceNotFoundError`, `SessionNotFoundError`.
-- [ ] **2.2. Implementar `RateLimiter` e Cliente Base (`base.py`):**
+- [x] **2.2. Implementar `RateLimiter` e Cliente Base (`base.py`):**
   - Implementar mecanismo de controle de taxa (3 req/s e 30 req/min).
   - Implementar método genérico `_get(endpoint, params)` com timeout e retry automático para HTTP 429.
-- [ ] **2.3. Implementar Endpoints Específicos (`endpoints.py`):**
+- [x] **2.3. Implementar Endpoints Específicos (`endpoints.py`):**
   - `get_meetings(year, meeting_key, country_name)`
   - `get_sessions(meeting_key, session_name, session_key)`
   - `get_drivers(session_key, driver_number)`
@@ -189,13 +189,13 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
   - `get_session_results(session_key, position)`
   - `get_weather(session_key)`
   - `get_car_data(session_key, driver_number, ...)`
-- [ ] **2.4. Testes Unitários com Mocks (`tests/test_client.py`):**
+- [x] **2.4. Testes Unitários com Mocks (`tests/test_client.py`):**
   - Cobrir cenários de sucesso, erro de status code e ativação de rate limit (sem bater na API real).
 
 ---
 
 ### Fase 3: Modelagem e Validação Tipada (`src/models/`)
-- [ ] **3.1. Criar Schemas Pydantic v2:**
+- [x] **3.1. Criar Schemas Pydantic v2:**
   - `Meeting`: informações do evento, país, circuito e ano.
   - `Session`: detalhes da sessão (nome, tipo, data/hora).
   - `Driver`: número, sigla, nome completo, equipe, cor hex da equipe.
@@ -203,30 +203,30 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
   - `Stint`: número do stint, composto (`SOFT`, `MEDIUM`, `HARD`, etc.), voltas percorridas.
   - `CarData`: telemetria de alta frequência (velocidade, RPM, acelerador, freio, marcha, DRS).
   - `SessionResult`: posição de largada, posição de chegada, pontos, status.
-- [ ] **3.2. Testes dos Modelos (`tests/test_models.py`):**
+- [x] **3.2. Testes dos Modelos (`tests/test_models.py`):**
   - Validação de payload JSON típico da OpenF1, campos opcionais/nulos e conversão de tipos.
 
 ---
 
 ### Fase 4: Serviços Analíticos e Agregações (`src/services/`)
-- [ ] **4.1. `SessionService`:**
+- [x] **4.1. `SessionService`:**
   - Métodos para extrair visão consolidada de um GP (sessão, grid, resultados e tempos).
-- [ ] **4.2. `StatsService`:**
+- [x] **4.2. `StatsService`:**
   - Identificação de volta mais rápida da sessão.
   - Média de tempo por stint e análise de consistência de ritmo.
   - Ganho/perda de posições em relação ao grid de largada.
-- [ ] **4.3. `TelemetryService`:**
+- [x] **4.3. `TelemetryService`:**
   - Processamento e interpolação de dados de telemetria de duas voltas para comparação gráfica direta (ex: comparação de volta rápida de dois pilotos rivais).
-- [ ] **4.4. Testes dos Serviços (`tests/test_services.py`):**
+- [x] **4.4. Testes dos Serviços (`tests/test_services.py`):**
   - Testes com datasets simulados cobrindo os cálculos estatísticos e regras de negócio.
 
 ---
 
 ### Fase 5: Dashboard Interativo em Streamlit (`src/app.py`, `components/`, `views/`)
-- [ ] **5.1. Ponto de Entrada (`src/app.py`):**
+- [x] **5.1. Ponto de Entrada (`src/app.py`):**
   - Configuração de página (`st.set_page_config`), layout amplo (*wide*) e tema escuro personalizado com identidade F1.
   - Gerenciamento de estado e navegação entre visões.
-- [ ] **5.2. Componentes de UI (`src/components/`):**
+- [x] **5.2. Componentes de UI (`src/components/`):**
   - `sidebar.py`: Seleção encadeada de Temporada (Ano) ➔ GP (Meeting) ➔ Sessão (Quali/Race) ➔ Pilotos.
   - `kpis.py`: Métricas de destaque (Vencedor, Volta mais rápida, Temperatura de pista, Segurança na pista).
   - `charts.py`:
@@ -234,39 +234,39 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
     - Gráfico comparativo de voltas (Delta lap time).
     - Gráfico de estratégia de pneus (Timeline de compostos por volta).
     - Gráfico interativo de telemetria curva a curva (Velocidade x Distância/Tempo, Aceleração e Freio).
-- [ ] **5.3. Páginas/Visões do Dashboard (`src/views/`):**
+- [x] **5.3. Páginas/Visões do Dashboard (`src/views/`):**
   - `session_overview.py`: Tabela de classificação com cores das equipes, gaps e pontos.
   - `lap_analysis.py`: Matriz de tempos, distribuição de voltas e consistência de stints.
   - `telemetry_view.py`: Comparativo lado a lado de telemetria entre dois pilotos.
-- [ ] **5.4. Estratégia de Caching:**
+- [x] **5.4. Estratégia de Caching:**
   - Aplicar `@st.cache_data` com TTL em todas as funções de serviço e consulta à API.
 
 ---
 
 ### Fase 6: Documentação Técnica com MkDocs Material (`docs/` e `mkdocs.yml`)
-- [ ] **6.1. Configuração do MkDocs (`mkdocs.yml`):**
+- [x] **6.1. Configuração do MkDocs (`mkdocs.yml`):**
   - Ativar tema `material` com paleta de cores F1 (primária vermelha, fundo escuro).
   - Configurar navegação, busca em português/inglês e extensões markdown.
-- [ ] **6.2. Elaboração das Páginas em `docs/`:**
+- [x] **6.2. Elaboração das Páginas em `docs/`:**
   - `index.md`: Apresentação geral, objetivos e screenshots do dashboard.
   - `getting-started.md`: Como clonar, instalar dependências (`poetry install`) e rodar.
   - `architecture.md`: Diagrama de componentes e integração com a OpenF1.
   - `api-client.md`: Como usar o cliente Python de forma independente.
   - `dashboard.md`: Guia de navegação no Streamlit.
-- [ ] **6.3. Validação do Build:**
+- [x] **6.3. Validação do Build:**
   - Executar `poetry run mkdocs build --strict` sem avisos ou links quebrados.
 
 ---
 
 ### Fase 7: Homologação Final de Qualidade e Cobertura (DoD)
-- [ ] **7.1. Linting e Formatação Estrita:**
+- [x] **7.1. Linting e Formatação Estrita:**
   - Executar `poetry run ruff check . --fix`.
   - Executar `poetry run ruff format .`.
   - Garantir zero alertas pendentes.
-- [ ] **7.2. Validação da Cobertura de Testes (Mínimo 50%):**
+- [x] **7.2. Validação da Cobertura de Testes (Mínimo 50%):**
   - Executar `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50`.
   - Garantir 100% dos testes passando e cobertura >= 50% em `src/`.
-- [ ] **7.3. Teste de Inicialização do Streamlit:**
+- [x] **7.3. Teste de Inicialização do Streamlit:**
   - Executar `poetry run streamlit run src/app.py` garantindo inicialização limpa.
 
 ---
@@ -275,12 +275,12 @@ O fluxo de extração seguirá a ordem recomendada pela documentação oficial:
 
 Uma tarefa ou fase do projeto só é considerada **concluída** após a validação do seguinte checklist:
 
-1. [ ] **Ambiente:** Todas as dependências gerenciadas estritamente pelo Poetry dentro do `.venv`.
-2. [ ] **Tipagem e Lint:** Código 100% tipado com *Type Hints*, validado com sucesso por `poetry run ruff check .`.
-3. [ ] **Formatação:** Código formatado via `poetry run ruff format .`.
-4. [ ] **Testes e Cobertura:** Suíte executada via `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com taxa de aprovação de 100% e cobertura em `src/` **>= 50%**.
-5. [ ] **Dashboard Streamlit:** Aplicação Streamlit inicializando sem erros ou quebras de tela.
-6. [ ] **Documentação:** Build estático do MkDocs compilado sem erros (`poetry run mkdocs build`).
+1. [x] **Ambiente:** Todas as dependências gerenciadas estritamente pelo Poetry dentro do `.venv`.
+2. [x] **Tipagem e Lint:** Código 100% tipado com *Type Hints*, validado com sucesso por `poetry run ruff check .`.
+3. [x] **Formatação:** Código formatado via `poetry run ruff format .`.
+4. [x] **Testes e Cobertura:** Suíte executada via `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com taxa de aprovação de 100% e cobertura em `src/` **>= 50%**.
+5. [x] **Dashboard Streamlit:** Aplicação Streamlit inicializando sem erros ou quebras de tela.
+6. [x] **Documentação:** Build estático do MkDocs compilado sem erros (`poetry run mkdocs build`).
 
 ---
 

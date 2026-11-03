@@ -1,0 +1,50 @@
+site_name: "OpenF1 Analytics & Dashboard"
+site_description: "Plataforma analítica e dashboard interativo para Fórmula 1 consumindo a OpenF1 API"
+site_author: "leroma-dev"
+repo_name: "empregadados/empregadados-projeto-formula1"
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Alternar para modo claro
+    - scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Alternar para modo escuro
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Início: index.md
+  - Guia de Início Rápido: getting-started.md
+  - Arquitetura da Solução: architecture.md
+  - Cliente OpenF1: api-client.md
+  - Guia do Dashboard: dashboard.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+

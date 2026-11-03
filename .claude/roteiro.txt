@@ -1,0 +1,98 @@
+Parte 1
+Criar doc_api.md
+https://openf1.org/docs/#api-endpoints leia essa api e faça um doc_api.md com os principais topicos resumidos
+
+Parte 2
+Criar skill.md
+gere um prompt pedindo a AI para criar um arquivo skill.md com os seguintes requisitos de projeto: 
+- uso de poetry para gerenciamento
+- streamlit para apresentacao
+- pyenv para setar a versao local 
+- tudo instalado do venv usando poetry
+- ruff para lint e formater
+- py test para testesr unitarios cobrindo no minimo 50% do projeto em src/
+- mkdocs material para criaçao da documentacao
+
+
+Parte 3
+
+Gere um plan.md para a criacao do nosso projeto, utilize os arquivos  [doc_api.md](file;file:///home/programador/dev/empregadados/empregadados-projeto-formula1/doc_api.md)  e o [skill.md](file;file:///home/programador/dev/empregadados/empregadados-projeto-formula1/skill.md) 
+
+
+resposta parte 2
+        Você é um Arquiteto de Software e Engenheiro de Dados Sênior especialista em ecossistema Python moderno.
+
+        Sua tarefa é criar um arquivo de instruções e padrões de projeto chamado `skill.md` na raiz do repositório. Esse arquivo servirá como guia mandatório e operacional para desenvolvedores e agentes de IA que forem codificar, testar e manter este projeto.
+
+        O arquivo `skill.md` deve cobrir detalhadamente as seguintes diretrizes e ferramentas:
+
+        1. **Gerenciamento de Versão Python com Pyenv:**
+        - Instruir como definir e travar a versão local do Python no repositório (`pyenv local <versao>`).
+        - Explicar como checar se a versão ativa está correta (`python --version`).
+
+        2. **Gerenciamento de Dependências e Ambiente Virtual com Poetry:**
+        - Obrigatoriedade de configurar o Poetry para criar o ambiente virtual `.venv` dentro da pasta do projeto (`poetry config virtualenvs.in-project true`).
+        - Todos os pacotes e dependências (produção e desenvolvimento) devem ser instalados e gerenciados exclusivamente via Poetry (`poetry add`, `poetry install`).
+        - Todas as execuções de comandos, ferramentas e scripts devem rodar dentro da venv usando `poetry run <comando>`.
+
+        3. **Padronização e Qualidade de Código com Ruff:**
+        - Uso do Ruff como ferramenta unificada de Linter e Formatter.
+        - Fornecer os comandos obrigatórios para verificação (`poetry run ruff check . --fix`) e formatação (`poetry run ruff format .`).
+        - Estabelecer regra de tolerância zero para violações de lint antes de submeter código.
+
+        4. **Testes Unitários e Cobertura com Pytest:**
+        - Utilização do `pytest` com o plugin `pytest-cov`.
+        - **Regra mandatória:** A suíte de testes deve cobrir no mínimo **50%** de todo o código em `src/` (`--cov=src --cov-fail-under=50`).
+        - Fornecer os comandos para execução dos testes e geração de relatórios no terminal (`--cov-report=term-missing`).
+
+        5. **Documentação com MkDocs Material:**
+        - Uso do MkDocs com o tema `material` (`mkdocs-material`) para documentação técnica.
+        - Apresentar a estrutura esperada de pastas (`mkdocs.yml` e diretório `docs/`).
+        - Fornecer os comandos para iniciar o servidor local (`poetry run mkdocs serve`) e compilar para produção (`poetry run mkdocs build`).
+
+        6. **Tabela Resumo e Checklist de Validação:**
+        - Incluir uma tabela com resumo rápido de comandos (`Ação | Ferramenta | Comando`).
+        - Um checklist passo a passo que a IA/desenvolvedor deve executar antes de finalizar qualquer tarefa no projeto.
+
+        Estruture a resposta diretamente no formato Markdown pronto para salvar como `skill.md`.
+
+Resposta 2
+
+        Atue como um Engenheiro de Software Sênior e Especialista em DevOps Python. Crie um arquivo `SKILL.md` detalhado e profissional para ser utilizado como guia de regras e padrões do nosso projeto por assistentes de IA e desenvolvedores.
+
+        O arquivo deve documentar e padronizar os seguintes requisitos de arquitetura e fluxo de trabalho:
+
+        1. **Gerenciamento de Versão do Python:**
+        - Uso de `pyenv` para fixar a versão local do Python (ex: `pyenv local 3.11.x` ou versão especificada no `.python-version`).
+
+        2. **Gerenciamento de Dependências e Ambiente Virtual:**
+        - Uso exclusivo de `Poetry`.
+        - Garantir que o ambiente virtual (`.venv`) fique dentro da raiz do projeto (`poetry config virtualenvs.in-project true --local`).
+        - Todas as ferramentas, pacotes e comandos devem ser instalados e executados via Poetry (`poetry install`, `poetry run ...`).
+
+        3. **Interface e Apresentação:**
+        - Uso de `Streamlit` para a camada visual/dashboard.
+        - Incluir comandos padrão de execução (ex: `poetry run streamlit run src/app.py` ou `src/main.py`).
+
+        4. **Qualidade de Código (Lint & Format):**
+        - Uso do `Ruff` tanto para linting quanto para formatação.
+        - Comandos para checagem (`poetry run ruff check`) e formatação (`poetry run ruff format`).
+
+        5. **Testes Unitários e Cobertura:**
+        - Uso de `pytest` e `pytest-cov`.
+        - Regra estrita: cobertura de testes unitários mínima de **50%** sobre o código contido no diretório `src/`.
+        - Comando com barreira de falha: `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50`.
+
+        6. **Documentação Técnica:**
+        - Uso de `MkDocs` com o tema `mkdocs-material`.
+        - Comandos de inicialização local (`poetry run mkdocs serve`) e build (`poetry run mkdocs build`).
+
+        ---
+
+        ### Estrutura esperada do `SKILL.md`:
+        - **Descrição e Propósito do Projeto**: Visão geral das tecnologias adotadas.
+        - **Setup Inicial do Ambiente**: Passo a passo com `pyenv` e `poetry`.
+        - **Tabela de Comandos Frequentes (CLI Cheat Sheet)**: Comandos para rodar a aplicação, testes, lint, format e documentação.
+        - **Padrões de Código e Boas Práticas**: Diretrizes para escrita de código em `src/` e testes em `tests/`.
+        - **Critérios de Aceite (Definition of Done)**: Checklist antes de commitar (Ruff sem erros, cobertura >= 50%, docs atualizados).
+

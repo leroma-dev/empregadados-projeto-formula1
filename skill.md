@@ -185,21 +185,21 @@ A documentação do projeto é gerada estaticamente com o **MkDocs** utilizando 
 | **Ambiente** | Instalar dependências | `poetry` | `poetry install` |
 | **Ambiente** | Adicionar dependência prod | `poetry` | `poetry add <pacote>` |
 | **Ambiente** | Adicionar dependência dev | `poetry` | `poetry add --group dev <pacote>` |
-| **Frontend** | Iniciar app Streamlit | `streamlit` | `poetry run streamlit run src/app.py` |
-| **Qualidade** | Checar e corrigir lint | `ruff` | `poetry run ruff check . --fix` |
-| **Qualidade** | Formatar código | `ruff` | `poetry run ruff format .` |
-| **Testes** | Testar com cobertura (min 50%) | `pytest` | `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` |
-| **Docs** | Servidor de documentação | `mkdocs` | `poetry run mkdocs serve` |
-| **Docs** | Gerar build dos docs | `mkdocs` | `poetry run mkdocs build` |
+| **Frontend** | Iniciar app Streamlit | `taskipy` / `streamlit` | `poetry run task run` (ou `poetry run streamlit run src/app.py`) |
+| **Qualidade** | Checar e validar lint | `taskipy` / `ruff` | `poetry run task lint` (ou `poetry run ruff check .`) |
+| **Qualidade** | Formatar código | `taskipy` / `ruff` | `poetry run task format` (ou `poetry run ruff format .`) |
+| **Testes** | Testar com cobertura (min 50%) | `taskipy` / `pytest` | `poetry run task test` (ou `poetry run pytest --cov=src ...`) |
+| **Docs** | Servidor de documentação | `taskipy` / `mkdocs` | `poetry run task docs` (ou `poetry run mkdocs serve`) |
+| **Docs** | Gerar build dos docs | `taskipy` / `mkdocs` | `poetry run task docs_build` (ou `poetry run mkdocs build`) |
 
 ---
 
 ## 9. Checklist de Validação (Definition of Done)
 Antes de finalizar qualquer tarefa, submeter commits ou aprovar pull requests, execute e valide o seguinte checklist:
 
-1. [ ] **Ambiente:** Dependências instaladas e atualizadas no `.venv` via `poetry`.
-2. [ ] **Lint:** `poetry run ruff check . --fix` executado com zero advertências/erros.
-3. [ ] **Formatação:** `poetry run ruff format .` executado para padronização.
-4. [ ] **Testes & Cobertura:** `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com 100% de testes passando e cobertura em `src/` >= 50%.
-5. [ ] **Frontend:** Streamlit inicializando sem erros (`poetry run streamlit run ...`).
-6. [ ] **Documentação:** Páginas e guias em `docs/` atualizados e build validado (`poetry run mkdocs build`).
+1. [x] **Ambiente:** Dependências instaladas e atualizadas no `.venv` via `poetry`.
+2. [x] **Lint:** `poetry run ruff check . --fix` executado com zero advertências/erros.
+3. [x] **Formatação:** `poetry run ruff format .` executado para padronização.
+4. [x] **Testes & Cobertura:** `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com 100% de testes passando e cobertura em `src/` >= 50%.
+5. [x] **Frontend:** Streamlit inicializando sem erros (`poetry run streamlit run ...`).
+6. [x] **Documentação:** Páginas e guias em `docs/` atualizados e build validado (`poetry run mkdocs build`).

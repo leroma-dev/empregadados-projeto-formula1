@@ -232,6 +232,7 @@ import requests
 
 BASE_URL = "https://api.openf1.org/v1"
 
+
 def get_latest_session_drivers():
     # 1. Busca os dados da sessão mais recente
     sessions_url = f"{BASE_URL}/sessions?session_key=latest"
@@ -242,7 +243,9 @@ def get_latest_session_drivers():
 
     session = session_data[0]
     session_key = session["session_key"]
-    print(f"Sessão: {session['session_name']} - {session['location']} ({session['year']})")
+    print(
+        f"Sessão: {session['session_name']} - {session['location']} ({session['year']})"
+    )
 
     # Respeita o rate limit
     time.sleep(0.5)
@@ -254,6 +257,7 @@ def get_latest_session_drivers():
     print(f"\nPilotos ({len(drivers)}):")
     for d in drivers:
         print(f"#{d['driver_number']} - {d['full_name']} ({d['team_name']})")
+
 
 if __name__ == "__main__":
     get_latest_session_drivers()
