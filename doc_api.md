@@ -1,6 +1,6 @@
 # Documentação Resumida da OpenF1 API
 
-> **Fonte Oficial:** [https://openf1.org/docs/](https://openf1.org/docs/)  
+> **Fonte Oficial:** [https://openf1.org/docs/](https://openf1.org/docs/)
 > **Base URL:** `https://api.openf1.org/v1`
 
 ---

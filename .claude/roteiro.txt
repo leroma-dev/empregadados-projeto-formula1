@@ -4,10 +4,10 @@ https://openf1.org/docs/#api-endpoints leia essa api e faça um doc_api.md com o
 
 Parte 2
 Criar skill.md
-gere um prompt pedindo a AI para criar um arquivo skill.md com os seguintes requisitos de projeto: 
+gere um prompt pedindo a AI para criar um arquivo skill.md com os seguintes requisitos de projeto:
 - uso de poetry para gerenciamento
 - streamlit para apresentacao
-- pyenv para setar a versao local 
+- pyenv para setar a versao local
 - tudo instalado do venv usando poetry
 - ruff para lint e formater
 - py test para testesr unitarios cobrindo no minimo 50% do projeto em src/
@@ -16,12 +16,12 @@ gere um prompt pedindo a AI para criar um arquivo skill.md com os seguintes requ
 
 Parte 3
 
-Gere um plan.md para a criacao do nosso projeto, utilize os arquivos  [doc_api.md](file;file://./doc_api.md)  e o [skill.md](file;file://./skill.md) 
+Gere um plan.md para a criacao do nosso projeto, utilize os arquivos  [doc_api.md](file;file://./doc_api.md)  e o [skill.md](file;file://./skill.md)
 
 
-Parte 4 
+Parte 4
 
-implemente o projeto do [plan.md](file;file://./plan.md) conforme a skill [skill.md](file;file://./skill.md) 
+implemente o projeto do [plan.md](file;file://./plan.md) conforme a skill [skill.md](file;file://./skill.md)
 caso nao exista, adicione o comando poetry run task test, lint, format e docs
 
 

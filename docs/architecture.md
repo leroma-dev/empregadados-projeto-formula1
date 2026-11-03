@@ -12,15 +12,15 @@ flowchart TD
     Client -->|"Rate Limiting (3 req/s, 30 req/min) & Retries"| Client
     Client --> Models["Modelagem Tipada Pydantic v2 (src/models/)"]
     Models --> Services["Camada de Serviços e Negócios (src/services/)"]
-    
+
     subgraph Services ["Camada de Serviços"]
         SS["SessionService"]
         STS["StatsService"]
         TS["TelemetryService"]
     end
-    
+
     Services --> UI["Interface Streamlit (src/views/ & src/components/)"]
-    
+
     subgraph UI ["Interface Streamlit"]
         OV["Visão Geral"]
         LA["Análise de Voltas"]
