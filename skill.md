@@ -1,20 +1,39 @@
 # Skill do Projeto: Padrões de Desenvolvimento e Engenharia
 
-Este documento define as diretrizes, ferramentas, padrões de código e comandos obrigatórios para o desenvolvimento deste projeto. Ele serve como guia de instrução para desenvolvedores e agentes de Inteligência Artificial que operem nesta base de código.
+Este documento define as diretrizes, tecnologias, padrões de código e comandos obrigatórios para o desenvolvimento deste projeto. Ele serve como guia operacional e mandatório tanto para desenvolvedores quanto para assistentes de Inteligência Artificial.
 
 ---
 
-## 1. Visão Geral e Princípios
-- **Linguagem Principal:** Python 3.12+
-- **Foco:** Qualidade de código, automação de testes, padronização e documentação contínua.
-- **Diretório de Código-fonte:** `src/`
-- **Diretório de Testes:** `tests/`
-- **Diretório de Documentação:** `docs/`
+## 1. Visão Geral e Arquitetura
+- **Linguagem:** Python 3.12+ (gerenciado via `pyenv`)
+- **Gerenciador de Dependências & Ambiente:** Poetry
+- **Interface e Apresentação (Frontend/Dashboard):** Streamlit
+- **Qualidade de Código (Lint & Format):** Ruff
+- **Testes Unitários e Cobertura:** Pytest (`pytest-cov` com mínimo de 50% de cobertura em `src/`)
+- **Documentação Técnica:** MkDocs com tema Material (`mkdocs-material`)
+
+### Estrutura Padrão de Diretórios
+```text
+.
+├── .python-version       # Versão do Python fixada pelo pyenv
+├── pyproject.toml        # Configuração do projeto e dependências (Poetry)
+├── skill.md              # Guia de padrões e regras operacionais
+├── doc_api.md            # Documentação dos endpoints da API
+├── plan.md               # Planejamento das fases do projeto
+├── docs/                 # Documentação técnica em Markdown (MkDocs)
+│   └── index.md
+├── mkdocs.yml            # Configuração do MkDocs Material
+├── src/                  # Código-fonte da aplicação e dashboards
+│   ├── app.py            # Ponto de entrada do dashboard Streamlit
+│   └── ...
+└── tests/                # Testes unitários com pytest
+    └── ...
+```
 
 ---
 
 ## 2. Gerenciamento de Versão do Python (`pyenv`)
-O versionamento do Python deve ser controlado via **pyenv** para garantir consistência entre ambientes de desenvolvimento e CI/CD.
+A versão do Python deve ser rigorosamente padronizada utilizando o **pyenv**, garantindo paridade entre o ambiente de desenvolvimento e produção.
 
 - **Definir versão local do projeto:**
   ```bash
@@ -25,55 +44,76 @@ O versionamento do Python deve ser controlado via **pyenv** para garantir consis
   pyenv which python
   python --version
   ```
-- O arquivo `.python-version` na raiz do repositório deve ser versionado e respeitado.
+- O arquivo `.python-version` gerado na raiz deve ser sempre mantido e respeitado.
 
 ---
 
 ## 3. Gerenciamento de Dependências e Ambiente Virtual (`poetry`)
-Todo o ciclo de vida de dependências e ambientes virtuais deve ser gerenciado exclusivamente através do **Poetry**.
+Todas as dependências e o ambiente virtual devem ser gerenciados **exclusivamente através do Poetry**.
 
-### Configuração do Ambiente Virtual
-- O Poetry deve criar o ambiente virtual (`.venv`) obrigatoriamente dentro da pasta raiz do projeto:
+### Configuração do Ambiente Virtual (`.venv`)
+- O ambiente virtual deve obrigatoriamente residir dentro da pasta raiz do projeto:
   ```bash
   poetry config virtualenvs.in-project true
   ```
 
-### Instalação de Dependências
+### Instalação de Pacotes
 - Criar/sincronizar o ambiente e instalar todas as dependências:
   ```bash
   poetry install
   ```
 - Adicionar dependência de produção:
   ```bash
-  poetry add <nome-do-pacote>
+  poetry add <pacote>
   ```
 - Adicionar dependência de desenvolvimento:
   ```bash
-  poetry add --group dev <nome-do-pacote>
+  poetry add --group dev <pacote>
   ```
 
-### Execução de Comandos
-- Todo comando, script ou ferramenta CLI deve ser executado obrigatoriamente dentro do contexto do Poetry:
+### Regra de Execução de Comandos
+- **Nenhum comando Python ou ferramenta CLI deve ser executado fora da venv.**
+- Use sempre o prefixo `poetry run`:
   ```bash
   poetry run <comando>
   ```
-- Ou ativando o ambiente virtual:
+- Ou ative a venv antes de executar:
   ```bash
   source .venv/bin/activate
   ```
 
 ---
 
-## 4. Linting, Formatação e Qualidade de Código (`ruff`)
-O **Ruff** é a ferramenta padrão e única para análise estática de código (linter) e formatação (formatter).
+## 4. Camada de Apresentação e Visualização (`streamlit`)
+O **Streamlit** é o framework padrão para construção de dashboards interativos e visualização de dados da Fórmula 1.
+
+### Diretrizes de Implementação
+- O ponto de entrada da aplicação Streamlit deve estar localizado em `src/` (ex: `src/app.py` ou `src/main.py`).
+- Separe lógica de negócio/consumo de APIs das páginas visuais e componentes do Streamlit.
+- Utilize cache (`@st.cache_data` / `@st.cache_resource`) para chamadas a APIs e processamento pesado.
+
+### Comandos de Execução
+- **Executar a aplicação Streamlit:**
+  ```bash
+  poetry run streamlit run src/app.py
+  ```
+- **Executar com recarga automática e porta customizada:**
+  ```bash
+  poetry run streamlit run src/app.py --server.port 8501 --server.runOnSave true
+  ```
+
+---
+
+## 5. Qualidade de Código, Linting e Formatação (`ruff`)
+O **Ruff** é o linter e formatador de código único e obrigatório do projeto.
 
 ### Regras
-- O código deve seguir a **PEP 8** e ter tipagem estática (Type Hints).
-- Imports devem ser ordenados automaticamente (compatível com isort).
-- Nenhuma alteração pode ser submetida com violações de lint.
+- Código deve seguir as convenções da **PEP 8** e possuir tipagem estática (*Type Hints*).
+- Imports devem ser ordenados automaticamente (estilo `isort`).
+- Nenhuma alteração pode ser submetida com violações de lint pendentes.
 
 ### Comandos Obrigatórios
-- **Verificar problemas de linting e corrigir automaticamente os seguros:**
+- **Verificar problemas de linting e aplicar correções automáticas:**
   ```bash
   poetry run ruff check . --fix
   ```
@@ -81,7 +121,7 @@ O **Ruff** é a ferramenta padrão e única para análise estática de código (
   ```bash
   poetry run ruff format .
   ```
-- **Checagem estrita para CI/validação:**
+- **Modo estrito para validação/CI (sem alterar arquivos):**
   ```bash
   poetry run ruff check .
   poetry run ruff format --check .
@@ -89,78 +129,77 @@ O **Ruff** é a ferramenta padrão e única para análise estática de código (
 
 ---
 
-## 5. Testes Unitários e Cobertura Mínima (`pytest` + `pytest-cov`)
-A suíte de testes deve utilizar **pytest** e monitorar a cobertura com **pytest-cov**.
+## 6. Testes Unitários e Cobertura Mínima (`pytest` + `pytest-cov`)
+A suíte de testes deve utilizar **pytest** com o plugin **pytest-cov** para monitoramento de cobertura.
 
 ### Requisito Mandatório de Cobertura
-- **Meta de Cobertura:** É **obrigatório** cobrir no mínimo **50%** de todo o código localizado dentro do diretório `src/`.
-- Qualquer nova funcionalidade ou refatoração deve ser acompanhada de testes unitários que mantenham ou aumentem essa métrica.
+- **Meta de Cobertura Mínima:** É **obrigatório** cobrir no mínimo **50%** de todo o código localizado em `src/`.
+- A execução dos testes deve falhar automaticamente caso a cobertura fique abaixo de 50%.
+- Funções utilitárias, clientes de API e lógica de processamento de dados devem possuir testes com mocks adequados.
 
-### Comandos de Teste
-- **Executar testes simples:**
-  ```bash
-  poetry run pytest
-  ```
-- **Executar testes com relatório e validação de cobertura mínima de 50%:**
+### Comandos de Testes
+- **Executar testes e validar cobertura mínima de 50%:**
   ```bash
   poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50
   ```
-- **Gerar relatório HTML de cobertura (opcional):**
+- **Executar suíte rápida de testes:**
+  ```bash
+  poetry run pytest
+  ```
+- **Gerar relatório HTML de cobertura:**
   ```bash
   poetry run pytest --cov=src --cov-report=html
   ```
 
 ---
 
-## 6. Documentação do Projeto (`mkdocs-material`)
-A documentação do projeto é gerada estaticamente com **MkDocs** utilizando o tema **Material for MkDocs**.
+## 7. Documentação Técnica (`mkdocs-material`)
+A documentação do projeto é gerada estaticamente com o **MkDocs** utilizando o tema **Material for MkDocs**.
 
-### Estrutura Esperada
-```text
-├── mkdocs.yml          # Arquivo central de configuração
-└── docs/
-    ├── index.md        # Página inicial da documentação
-    └── ...             # Guias, referências e páginas adicionais
-```
+### Estrutura
+- Arquivo central de configuração: `mkdocs.yml` na raiz do repositório.
+- Documentos técnicos e guias em formato Markdown: pasta `docs/`.
 
 ### Comandos de Documentação
-- **Iniciar servidor de desenvolvimento local (live reload):**
+- **Iniciar servidor de desenvolvimento local (Live Preview):**
   ```bash
   poetry run mkdocs serve
   ```
-- **Construir a versão de produção (arquivos estáticos):**
+- **Construir arquivos estáticos para produção:**
   ```bash
   poetry run mkdocs build
   ```
-- **Publicar no GitHub Pages (se configurado):**
+- **Publicar no GitHub Pages (se aplicável):**
   ```bash
   poetry run mkdocs gh-deploy
   ```
 
 ---
 
-## 7. Tabela Rápida de Comandos para IA / Desenvolvedor
+## 8. Tabela Rápida de Comandos (CLI Cheat Sheet)
 
-| Ação | Ferramenta | Comando |
-| :--- | :--- | :--- |
-| Setar versão Python | `pyenv` | `pyenv local 3.12.10` |
-| Configurar `.venv` local | `poetry` | `poetry config virtualenvs.in-project true` |
-| Instalar dependências | `poetry` | `poetry install` |
-| Adicionar pacote dev | `poetry` | `poetry add --group dev <pacote>` |
-| Verificar e corrigir lint | `ruff` | `poetry run ruff check . --fix` |
-| Formatar código | `ruff` | `poetry run ruff format .` |
-| Rodar testes (min 50% cov) | `pytest` | `poetry run pytest --cov=src --cov-fail-under=50` |
-| Servidor de documentação | `mkdocs` | `poetry run mkdocs serve` |
-| Build da documentação | `mkdocs` | `poetry run mkdocs build` |
+| Categoria | Ação | Ferramenta | Comando |
+| :--- | :--- | :--- | :--- |
+| **Python** | Fixar versão local | `pyenv` | `pyenv local 3.12.10` |
+| **Ambiente** | Criar `.venv` no projeto | `poetry` | `poetry config virtualenvs.in-project true` |
+| **Ambiente** | Instalar dependências | `poetry` | `poetry install` |
+| **Ambiente** | Adicionar dependência prod | `poetry` | `poetry add <pacote>` |
+| **Ambiente** | Adicionar dependência dev | `poetry` | `poetry add --group dev <pacote>` |
+| **Frontend** | Iniciar app Streamlit | `streamlit` | `poetry run streamlit run src/app.py` |
+| **Qualidade** | Checar e corrigir lint | `ruff` | `poetry run ruff check . --fix` |
+| **Qualidade** | Formatar código | `ruff` | `poetry run ruff format .` |
+| **Testes** | Testar com cobertura (min 50%) | `pytest` | `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` |
+| **Docs** | Servidor de documentação | `mkdocs` | `poetry run mkdocs serve` |
+| **Docs** | Gerar build dos docs | `mkdocs` | `poetry run mkdocs build` |
 
 ---
 
-## 8. Checklist de Validação para o Agente de IA
-Sempre que concluir uma alteração no código ou criar um novo módulo:
-1. [ ] Certificar-se de que os pacotes foram instalados via `poetry`.
-2. [ ] Executar `poetry run ruff check . --fix` e garantir 0 erros de lint.
-3. [ ] Executar `poetry run ruff format .` para formatação consistente.
-4. [ ] Escrever/atualizar testes em `tests/`.
-5. [ ] Executar `poetry run pytest --cov=src --cov-fail-under=50` e confirmar que a cobertura mínima de 50% foi atingida.
-6. [ ] Atualizar ou criar a documentação correspondente em `docs/` se houver nova funcionalidade.
+## 9. Checklist de Validação (Definition of Done)
+Antes de finalizar qualquer tarefa, submeter commits ou aprovar pull requests, execute e valide o seguinte checklist:
 
+1. [ ] **Ambiente:** Dependências instaladas e atualizadas no `.venv` via `poetry`.
+2. [ ] **Lint:** `poetry run ruff check . --fix` executado com zero advertências/erros.
+3. [ ] **Formatação:** `poetry run ruff format .` executado para padronização.
+4. [ ] **Testes & Cobertura:** `poetry run pytest --cov=src --cov-report=term-missing --cov-fail-under=50` com 100% de testes passando e cobertura em `src/` >= 50%.
+5. [ ] **Frontend:** Streamlit inicializando sem erros (`poetry run streamlit run ...`).
+6. [ ] **Documentação:** Páginas e guias em `docs/` atualizados e build validado (`poetry run mkdocs build`).
