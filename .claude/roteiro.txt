@@ -104,4 +104,3 @@ Resposta 2
         - **Tabela de Comandos Frequentes (CLI Cheat Sheet)**: Comandos para rodar a aplicação, testes, lint, format e documentação.
         - **Padrões de Código e Boas Práticas**: Diretrizes para escrita de código em `src/` e testes em `tests/`.
         - **Critérios de Aceite (Definition of Done)**: Checklist antes de commitar (Ruff sem erros, cobertura >= 50%, docs atualizados).
-

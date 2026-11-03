@@ -1,0 +1,39 @@
+# .pre-commit-config.yaml
+# Hooks executados automaticamente antes de cada `git commit`.
+# Instalação: poetry run pre-commit install
+# Execução manual: poetry run pre-commit run --all-files
+
+default_language_version:
+  python: python3.12
+
+repos:
+  # ─── Ruff: Linter ───────────────────────────────────────────────────────────
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff
+        name: "Ruff — lint & auto-fix"
+        args: [--fix, --exit-non-zero-on-fix]
+
+      - id: ruff-format
+        name: "Ruff — format"
+
+  # ─── Verificações gerais de arquivo ─────────────────────────────────────────
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: "Remove trailing whitespace"
+      - id: end-of-file-fixer
+        name: "Ensure files end with newline"
+      - id: check-yaml
+        name: "Validate YAML syntax"
+      - id: check-toml
+        name: "Validate TOML syntax"
+      - id: check-merge-conflict
+        name: "Check for merge conflict markers"
+      - id: check-added-large-files
+        name: "Block large files (>= 1 MB)"
+        args: [--maxkb=1024]
+      - id: debug-statements
+        name: "Block debug statements (pdb, breakpoint)"

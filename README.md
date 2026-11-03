@@ -92,6 +92,33 @@ poetry run task docs_build
 | `poetry run task docs` | Inicia o servidor local do MkDocs com live-reload |
 | `poetry run task docs_build` | Compila o build estático estrito da documentação |
 | `poetry run task run` | Inicia o dashboard interativo Streamlit |
+| `poetry run task pre-commit` | Executa todos os hooks de pre-commit manualmente |
+
+### 8. Pre-commit (Hooks Locais)
+
+Os hooks de pre-commit garantem qualidade de código em **cada commit** antes de chegar ao repositório remoto.
+
+```bash
+# Instalar os hooks no repositório local (necessário uma única vez):
+poetry run pre-commit install
+
+# Executar todos os hooks manualmente em todos os arquivos:
+poetry run task pre-commit
+# ou: poetry run pre-commit run --all-files
+
+# Atualizar todos os hooks para as versões mais recentes:
+poetry run pre-commit autoupdate
+```
+
+**Hooks configurados em [`.pre-commit-config.yaml`](.pre-commit-config.yaml):**
+- **Ruff Lint** (`ruff`): lint automático com correção (`--fix`).
+- **Ruff Format** (`ruff-format`): formatação automática de código.
+- **Trailing whitespace**: remove espaços em branco no fim das linhas.
+- **End of file fixer**: garante que arquivos terminam com newline.
+- **YAML / TOML validation**: valida sintaxe de arquivos de configuração.
+- **Merge conflict check**: detecta markers de conflito esquecidos.
+- **Large files**: bloqueia arquivos acima de 1 MB.
+- **Debug statements**: impede commits com `pdb`, `breakpoint()`, etc.
 
 ---
 

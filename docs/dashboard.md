@@ -43,4 +43,3 @@ poetry run streamlit run src/app.py
   - Pressão no pedal do acelerador (0 a 100%).
   - Pressão no pedal do freio (0 a 100%).
 - **Alinhamento por Distância:** O módulo interpola a distância percorrida no circuito, permitindo analisar com precisão os pontos de frenagem e reaceleração de cada piloto.
-

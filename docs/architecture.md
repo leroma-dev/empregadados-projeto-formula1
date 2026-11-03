@@ -53,4 +53,3 @@ flowchart TD
 - **`session_overview.py`:** Tabela de classificação com gaps, posições de largada e pontos.
 - **`lap_analysis.py`:** Comparação gráfica de degradação e linha do tempo dos stints.
 - **`telemetry_view.py`:** Comparativo curva a curva de aceleração, frenagem e velocidade máxima.
-

@@ -72,4 +72,3 @@ Caso a API retorne o código `HTTP 429 Too Many Requests`, o cliente intercepta 
 | `get_session_results(...)` | `/session_result` | Classificação e pontuação oficial |
 | `get_weather(...)` | `/weather` | Temperatura da pista/ar e chuva |
 | `get_team_radio(...)` | `/team_radio` | Links de áudios das equipes |
-

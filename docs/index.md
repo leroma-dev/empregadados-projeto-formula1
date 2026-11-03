@@ -32,4 +32,3 @@ Bem-vindo à documentação oficial do projeto **OpenF1 Analytics & Dashboard**.
 | **Pytest + Pytest-cov** | Suíte de testes automatizados com cobertura garantida |
 | **MkDocs Material** | Geração desta documentação técnica |
 | **GitHub Actions** | Pipeline automatizada de Integração Contínua (CI) |
-

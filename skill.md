@@ -204,10 +204,46 @@ Antes de finalizar qualquer tarefa, submeter commits ou aprovar pull requests, e
 5. [x] **Frontend:** Streamlit inicializando sem erros (`poetry run streamlit run ...`).
 6. [x] **Documentação:** Páginas e guias em `docs/` atualizados e build validado (`poetry run mkdocs build`).
 7. [x] **Pipeline de CI:** Workflow no GitHub Actions (`.github/workflows/ci.yml`) validado e passando nos jobs de lint, testes e docs.
+8. [x] **Pre-commit:** Hooks instalados (`poetry run pre-commit install`) e `poetry run pre-commit run --all-files` executado sem erros.
 
 ---
 
-## 10. Pipeline de Integração Contínua (GitHub Actions)
+## 10. Pre-commit (Hooks Locais de Qualidade)
+O arquivo `.pre-commit-config.yaml` define hooks executados automaticamente a cada `git commit`, garantindo padrões antes de qualquer código chegar ao repositório remoto.
+
+### Instalação (necessária uma única vez por clone)
+```bash
+poetry run pre-commit install
+```
+
+### Execução Manual
+```bash
+# Via taskipy:
+poetry run task pre-commit
+
+# Diretamente:
+poetry run pre-commit run --all-files
+
+# Atualizar versões dos hooks:
+poetry run pre-commit autoupdate
+```
+
+### Hooks Configurados (`.pre-commit-config.yaml`)
+| Hook | Ferramenta | Função |
+| :--- | :--- | :--- |
+| `ruff` | `ruff-pre-commit` | Lint com correção automática |
+| `ruff-format` | `ruff-pre-commit` | Formatação automática |
+| `trailing-whitespace` | `pre-commit-hooks` | Remove espaços no fim das linhas |
+| `end-of-file-fixer` | `pre-commit-hooks` | Garante newline ao final dos arquivos |
+| `check-yaml` | `pre-commit-hooks` | Valida sintaxe YAML |
+| `check-toml` | `pre-commit-hooks` | Valida sintaxe TOML |
+| `check-merge-conflict` | `pre-commit-hooks` | Detecta markers de conflito esquecidos |
+| `check-added-large-files` | `pre-commit-hooks` | Bloqueia arquivos >= 1 MB |
+| `debug-statements` | `pre-commit-hooks` | Impede `pdb`, `breakpoint()` nos commits |
+
+---
+
+## 11. Pipeline de Integração Contínua (GitHub Actions)
 O projeto conta com automação de CI em `.github/workflows/ci.yml` cobrindo:
 - **Disparo:** `push` e `pull_request` para `main` / `master` e gatilho manual (`workflow_dispatch`).
 - **Cache:** `.venv` atrelado ao `poetry.lock` para execuções rápidas.

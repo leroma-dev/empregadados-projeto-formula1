@@ -47,4 +47,3 @@ markdown_extensions:
       alternate_style: true
   - tables
   - attr_list
-

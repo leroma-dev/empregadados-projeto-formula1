@@ -269,4 +269,3 @@ Você pode baixar qualquer tabela diretamente em formato tabular compatível com
 ```bash
 curl -o voltas_sessao.csv "https://api.openf1.org/v1/laps?session_key=latest&csv=true"
 ```
-
