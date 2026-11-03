@@ -135,3 +135,53 @@ jobs:
 
       - name: Build Documentation (Strict Mode)
         run: poetry run task docs_build
+
+  deploy-docs:
+    name: Deploy Docs → GitHub Pages
+    needs: [lint, test, docs]
+    runs-on: ubuntu-latest
+    # Publica apenas em push direto à branch principal (não em PRs)
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write   # necessário para o gh-deploy fazer push na branch gh-pages
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # histórico completo exigido pelo mkdocs gh-deploy
+
+      - name: Set up Python 3.12
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      - name: Load cached virtualenv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      - name: Install project
+        run: poetry install --no-interaction
+
+      - name: Configure Git (para gh-deploy)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy Documentation to GitHub Pages
+        run: poetry run mkdocs gh-deploy --force
